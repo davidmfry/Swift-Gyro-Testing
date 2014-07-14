@@ -40,6 +40,7 @@
 		ED3659B719647E1F006AF9E5 /* GyroTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroTestTests.swift; sourceTree = "<group>"; };
 		ED3659C119647E31006AF9E5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		ED69612519648825003FDCBE /* GyroController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroController.swift; sourceTree = "<group>"; };
+		EDBF892A1965F07C00AD7E69 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 		ED36599319647E1F006AF9E5 = {
 			isa = PBXGroup;
 			children = (
+				EDBF892A1965F07C00AD7E69 /* MyPlayground.playground */,
 				ED3659C119647E31006AF9E5 /* CoreMotion.framework */,
 				ED36599E19647E1F006AF9E5 /* GyroTest */,
 				ED3659B419647E1F006AF9E5 /* GyroTestTests */,
@@ -85,11 +87,11 @@
 			children = (
 				ED3659A119647E1F006AF9E5 /* AppDelegate.swift */,
 				ED3659A619647E1F006AF9E5 /* ViewController.swift */,
+				ED69612519648825003FDCBE /* GyroController.swift */,
 				ED3659A819647E1F006AF9E5 /* Main.storyboard */,
 				ED3659AB19647E1F006AF9E5 /* Images.xcassets */,
 				ED3659A319647E1F006AF9E5 /* GyroTest.xcdatamodeld */,
 				ED36599F19647E1F006AF9E5 /* Supporting Files */,
-				ED69612519648825003FDCBE /* GyroController.swift */,
 			);
 			path = GyroTest;
 			sourceTree = "<group>";

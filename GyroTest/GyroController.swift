@@ -9,33 +9,68 @@
 import UIKit
 import CoreMotion
 
+protocol GyroControllerProtocol
+{
+    func motionDataAvailable(yaw:Double)
+}
+
 class GyroController: NSObject
 {
-    var motionManager = CMMotionManager()
+    var delegate: GyroControllerProtocol?
+    //let motionManager = CMMotionManager()
     
     var yaw: Double = 0.0
     var pitch: Double = 0.0
     var roll: Double = 0.0
+    //var myYaw = 0.0
     
-    func startMotion()
+
+    
+//    func startMotion()
+//    {
+//        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue(), withHandler: {deviceManager, error in
+//            self.yaw = self.motionManager.deviceMotion.attitude.yaw * 180 / M_PI
+//            self.pitch = self.motionManager.deviceMotion.attitude.pitch * 180 / M_PI
+//            self.roll = self.motionManager.deviceMotion.attitude.roll * 180 / M_PI
+//            
+//            if error
+//            {
+//                println("\(error)")
+//            }
+//            
+//            })
+//        
+//
+//    }
+    
+    func getGyroData(motionManager:CMMotionManager)
     {
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue(), withHandler: {deviceManager, error in
-            self.yaw = self.motionManager.deviceMotion.attitude.yaw * 180 / M_PI
-            self.pitch = self.motionManager.deviceMotion.attitude.pitch * 180 / M_PI
-            self.roll = self.motionManager.deviceMotion.attitude.roll * 180 / M_PI
+        motionManager.startDeviceMotionUpdates()
+        
+        if (motionManager.deviceMotionAvailable)
+        {
+            motionManager.deviceMotionUpdateInterval = 0.01
             
-            if error
-            {
-                println("\(error)")
-            }
+            var queue = NSOperationQueue.currentQueue()
             
-            })
+            motionManager.startDeviceMotionUpdatesToQueue(queue, withHandler:
+                {
+                    deviceManager, error in
+                    var attitude = motionManager.deviceMotion.attitude
+                    self.delegate?.motionDataAvailable(attitude.yaw * 180 / M_PI)
+                    if error
+                    {
+                        println("\(error)")
+                    }
+                
+                })
+        }
     }
     
-    func outputAttitude(yaw: UILabel, pitch: UILabel, roll:UILabel)
+    func outputAttitude()
     {
-        yaw.text = "\(self.yaw)"
-        pitch.text = "\(self.pitch)"
-        roll.text = "\(self.roll)"
+        
+        println("\(self.yaw)")
+
     }
 }

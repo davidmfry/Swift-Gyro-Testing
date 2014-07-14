@@ -9,25 +9,31 @@
 import UIKit
 import CoreMotion
 
-class ViewController: UIViewController {
-    //var motionManager = CMMotionManager()
+class ViewController: UIViewController, GyroControllerProtocol {
+    
     
     @IBOutlet var yawLabel : UILabel = nil
     @IBOutlet var pitchLabel : UILabel = nil
     @IBOutlet var rollLabel : UILabel = nil
     
-    let theGyroController = GyroController()
+    let motionManager = CMMotionManager()
+    let theGyroController: GyroController = GyroController()
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        theGyroController.startMotion()
-        //theGyroController.outputAttitude(yawLabel,pitch: pitchLabel, roll: rollLabel)
+        self.theGyroController.delegate = self
         
-        yawLabel.text = "\(theGyroController.yaw)"
-        pitchLabel.text = "\(theGyroController.pitch)"
-        rollLabel.text = "\(theGyroController.roll)"
+        self.theGyroController.getGyroData(motionManager)
     
+    }
+    
+    func motionDataAvailable(yaw: Double)
+    {
+        self.yawLabel.text = NSString(format:"%.0f", yaw)
+        //self.pitchLabel.text = NSString(format:"%.0f", pitch)
+        //self.rollLabel.text = NSString(format:"%.0f", roll)
     }
 
 
