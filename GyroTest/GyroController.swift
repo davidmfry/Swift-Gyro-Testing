@@ -11,37 +11,13 @@ import CoreMotion
 
 protocol GyroControllerProtocol
 {
-    func motionDataAvailable(yaw:Double)
+    func motionDataAvailable(yaw:Double, pitch:Double, roll:Double)
 }
 
 class GyroController: NSObject
 {
     var delegate: GyroControllerProtocol?
-    //let motionManager = CMMotionManager()
-    
-    var yaw: Double = 0.0
-    var pitch: Double = 0.0
-    var roll: Double = 0.0
-    //var myYaw = 0.0
-    
 
-    
-//    func startMotion()
-//    {
-//        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue(), withHandler: {deviceManager, error in
-//            self.yaw = self.motionManager.deviceMotion.attitude.yaw * 180 / M_PI
-//            self.pitch = self.motionManager.deviceMotion.attitude.pitch * 180 / M_PI
-//            self.roll = self.motionManager.deviceMotion.attitude.roll * 180 / M_PI
-//            
-//            if error
-//            {
-//                println("\(error)")
-//            }
-//            
-//            })
-//        
-//
-//    }
     
     func getGyroData(motionManager:CMMotionManager)
     {
@@ -57,7 +33,7 @@ class GyroController: NSObject
                 {
                     deviceManager, error in
                     var attitude = motionManager.deviceMotion.attitude
-                    self.delegate?.motionDataAvailable(attitude.yaw * 180 / M_PI)
+                    self.delegate?.motionDataAvailable(attitude.yaw * 180 / M_PI, pitch: attitude.pitch * 180 / M_PI, roll: attitude.roll * 180 / M_PI)
                     if error
                     {
                         println("\(error)")
@@ -65,12 +41,14 @@ class GyroController: NSObject
                 
                 })
         }
+        else
+        {
+            var alert = UIAlertView()
+            alert.title = "Alert"
+            alert.message = "Could not find: Accelaromter, Gyroscope."
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+        }
     }
     
-    func outputAttitude()
-    {
-        
-        println("\(self.yaw)")
-
-    }
 }
